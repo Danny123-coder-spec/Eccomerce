@@ -17,7 +17,7 @@ CreateCategory.getLayout = function getLayout(page) {
 export default function CreateCategory() {
   const INITIAL_VALUES = {
     name: "",
-    parent: [],
+    parent: "",
     featured: false,
   };
 
@@ -27,13 +27,8 @@ export default function CreateCategory() {
   });
   const handleFormSubmit = async(values) => {
     try {
-      const formData = new FormData()
-      formData.append("name", values.name);
-      formData.append("parent", values.parent);
-      formData.append("featured", values.featured);
-      
-      const response = await axios.post('http://localhost:3000/api/admin/categories/addCategory', {...values});
-      console.log("Form values:", values);
+      const response = await axios.post('http://localhost:3000/api/admin/categories/addCategory', values);
+      console.log( values);
       console.log(response);
       
       if(response?.data?.status === 500){
@@ -42,7 +37,7 @@ export default function CreateCategory() {
       }
       
       return toast.success('Category created successfully');
-        // toast.error('Unable to create product');
+      
      
     } catch (error) {
       // Handle errors here, you might want to log the error or show a specific message

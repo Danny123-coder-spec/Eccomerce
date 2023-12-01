@@ -85,9 +85,7 @@ const CategoryForm = (props) => {
                   onChange={handleChange}
                   placeholder="Parent Category"
                   label="Select Parent Category"
-                  SelectProps={{
-                    multiple: true,
-                  }}
+                  
                 >
                   <MenuItem value="electronics">Electronics</MenuItem>
                   <MenuItem value="fashion">Fashion</MenuItem>

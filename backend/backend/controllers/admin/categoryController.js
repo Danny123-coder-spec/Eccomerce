@@ -1,4 +1,5 @@
 
+import { copyFileSync } from "fs";
 import Category from "../../models/admin/categoryModel";
 
 // Create a new Category
@@ -6,14 +7,7 @@ import Category from "../../models/admin/categoryModel";
 const createCategory = async (req, res) => {
   // try {
   try {
-    // const newCategory = await Category.create(req.body);
-    // res.json(newCategory);
-    // await newCategory.save();
-    // if (newCategory) {
-    //   res.json({ message: 'Category Created Successully', status: 200 })
-    // } else {
-    //   res.json({ status: 400, error: 'Failed to created Category' })
-    // }
+    
     const newCategory = new Category({
       ...req?.body
     });
@@ -24,8 +18,8 @@ const createCategory = async (req, res) => {
       return res.json({message:"Category created successfully", status:200, category:newCategory})
     }
   } catch (error) {
-    res.json({ message: 'Internal Server Error' })
-    throw new Error(error);
+    res.json({ message: 'Internal Server Error', status:500 })
+    console.log(error.message)
 
   }
 };

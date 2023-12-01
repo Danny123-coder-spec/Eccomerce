@@ -15,7 +15,7 @@ CreateProduct.getLayout = function getLayout(page) {
 export default function CreateProduct() {
   const INITIAL_VALUES = {
     name: "",
-    tags: [],
+    tags: 0,
     stock: 0,
     price: "",
     category: "Electronics",
@@ -29,7 +29,7 @@ export default function CreateProduct() {
     stock: yup.number().required("required"),
     price: yup.number().required("required"),
     sale_price: yup.number().required("required"),
-    tags: yup.array(),
+    tags: yup.number(),
   });
 
   
@@ -47,18 +47,17 @@ export default function CreateProduct() {
       console.log("Form values:", values);
       console.log(response);
       
-      if(response?.data?.status === 500){
-
-      return toast.error('Product creation failed');
+      if(response?.data?.status === 200) {
+        return toast.success('Product created successfully');
+      } else {
+        return toast.error('Product creation failed')
       }
-      
-      return toast.success('Product created successfully');
-        // toast.error('Unable to create product');
      
     } catch (error) {
       // Handle errors here, you might want to log the error or show a specific message
-      console.error("Error creating product:", error);
+      console.error("Error creating product:", error.message);
       toast.error('Unable to create product');
+
     }
   };
   

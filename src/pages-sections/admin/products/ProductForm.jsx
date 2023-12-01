@@ -5,14 +5,18 @@ import DropZone from "components/DropZone";
 import { FlexBox } from "components/flex-box";
 import BazaarImage from "components/BazaarImage";
 import { UploadImageBox, StyledClear } from "../StyledComponents";
+import {initializeApp} from 'firebase/app'
 
-// ================================================================
+import { firebaseConfig, firebaseStorageUrl } from "utils";
+import {getStorage, ref, uploadBytes} from 'firebase/storage'
+const app = initializeApp(firebaseConfig);
 
-// ================================================================
+const storage = getStorage(app, firebaseStorageUrl)
 
 const ProductForm = (props) => {
   const { initialValues, validationSchema, handleFormSubmit } = props;
   const [files, setFiles] = useState([]);
+  const [img, setImg] = useState('')
 
   // HANDLE UPDATE NEW IMAGE VIA DROP ZONE
   const handleChangeDropZone = (files) => {
@@ -23,6 +27,26 @@ const ProductForm = (props) => {
     );
     setFiles(files);
   };
+
+  // const handleImage = async(event) => {
+  //   try {
+  //     const file = event.target.files[0];
+  //     const storageRef = ref(storage, 'images/' + file.name);
+      
+  //     // Upload file to Firebase Storage
+  //     await uploadBytes(storageRef, file);
+      
+  
+  //     console.log('Image uploaded successfully');
+  //   } catch (error) {
+  //     console.error('Error uploading image:', error);
+  //   }
+
+  // }
+
+  const handleClick = () => {
+    ref()
+  }
 
   // HANDLE DELETE UPLOAD IMAGE
   const handleFileDelete = (file) => () => {
@@ -64,23 +88,24 @@ const ProductForm = (props) => {
                   helperText={touched.name && errors.name}
                 />
               </Grid>
+              
               <Grid item sm={6} xs={12}>
                 <TextField
-                  select
                   fullWidth
+                  name="category"
+                  label="Select Category"
                   color="info"
                   size="medium"
-                  name="category"
-                  onBlur={handleBlur}
                   placeholder="Category"
-                  onChange={handleChange}
+                  onBlur={handleBlur}
                   value={values.category}
-                  label="Select Category"
-                  SelectProps={{
-                    multiple: true,
-                  }}
+                  onChange={handleChange}
                   error={!!touched.category && !!errors.category}
                   helperText={touched.category && errors.category}
+                  select
+                  SelectProps={{
+                    multiple: false,
+                  }}
                 >
                   <MenuItem value="electronics">Electronics</MenuItem>
                   <MenuItem value="fashion">Fashion</MenuItem>
@@ -93,7 +118,7 @@ const ProductForm = (props) => {
                 <FlexBox flexDirection="row" mt={2} flexWrap="wrap" gap={1}>
                   {files.map((file, index) => {
                     return (
-                      <UploadImageBox key={index}>
+                      <UploadImageBox key={index} onClick={handleClick} onChange={(e) => setImg(e.target.files[0])}>
                         <BazaarImage src={file.preview} width="100%" />
                         <StyledClear onClick={handleFileDelete(file)} />
                       </UploadImageBox>
@@ -145,6 +170,7 @@ const ProductForm = (props) => {
                   onBlur={handleBlur}
                   value={values.tags}
                   onChange={handleChange}
+                  
                   error={!!touched.tags && !!errors.tags}
                   helperText={touched.tags && errors.tags}
                 />
