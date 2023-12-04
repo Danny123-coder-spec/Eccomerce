@@ -1,9 +1,9 @@
-import { initializeApp } from "firebase/app";
+// import { initializeApp } from "firebase/app";
 
-import {initializeApp} from 'firebase/app';
-import { getStorage } from "firebase/storage";
+// '
+// import { getStorage } from "firebase/storage";'
 
-const firebaseConfig = {
+ export const firebaseConfig = {
     apiKey: "AIzaSyAvaJRI2xzjy7sCJqTbPy1q5vbKcfTov30",
     authDomain: "eccomerce-website-b0205.firebaseapp.com",
     projectId: "eccomerce-website-b0205",
@@ -13,6 +13,6 @@ const firebaseConfig = {
     measurementId: "G-2XKWHQ1TYT"
   };  
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
 
 export const firebaseStorageUrl = 'gs://eccomerce-website-b0205.appspot.com';

@@ -13,6 +13,7 @@ import createEmotionCache from "createEmotionCache";
 import "nprogress/nprogress.css";
 import "simplebar-react/dist/simplebar.min.css";
 import "../src/__server__";
+import '../styles/global.css'
 
 //Binding events.
 Router.events.on("routeChangeStart", () => nProgress.start());

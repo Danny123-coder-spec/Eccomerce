@@ -1,10 +1,22 @@
 import mongoose from "mongoose";
 
-const addressSchema = mongoose.Schema({
-    addressName:{
-        type:String,
+const addressSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+      },
+      addressLine: {
+        type: String,
         required:true
-    }
+      },
+    
+      phone: {
+        type: String,
+        required: true
+      }
+    
+    
+
 
 })
 

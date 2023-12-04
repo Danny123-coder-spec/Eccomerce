@@ -15,7 +15,11 @@ import CategoryMenu from "components/categories/CategoryMenu";
 import MegaMenu from "./MegaMenu";
 import MegaMenu2 from "./MegaMenu2";
 import useSettings from "hooks/useSettings";
+import Link from "next/link";
 import navbarNavigations from "data/navbarNavigations";
+import { useState } from "react";
+import { tr } from "date-fns/locale";
+
 
 // NavList props interface
 
@@ -92,6 +96,7 @@ const ChildNavsWrapper = styled(Box)({
 // ==========================================================
 
 const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
+  const [active, setActive] = useState(false);
   const { settings } = useSettings();
   const renderNestedNav = (list = [], isRoot = false) => {
     return list.map((nav) => {
@@ -198,6 +203,10 @@ const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
       }
     });
   };
+
+  const handleActive = () => {
+    setActive(true);
+  }
   return (
     <NavBarWrapper hoverEffect={false} elevation={elevation} border={border}>
       {!hideCategories ? (
@@ -225,7 +234,17 @@ const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
           </CategoryMenu>
 
           {/* Horizontal menu */}
-          <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox>
+          {/* <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox> */}
+          {/* <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox> */}
+          <div className="pr-10">
+            <Link className={`font-medium hover:text-[#D23F57] transition-all duration-75 ${active && 'text-red-500'}`} href="/">Home</Link>
+            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>Phones & Telecommunications</Link>
+            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>SuperDeals</Link>
+            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>Men's Clothings</Link>
+            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>Accessories</Link>
+            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>Customer Electronics</Link>
+            
+          </div>
         </InnerContainer>
       ) : (
         <InnerContainer

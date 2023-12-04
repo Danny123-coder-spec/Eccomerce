@@ -1,16 +1,31 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { Box, useTheme } from "@mui/material";
 import { H1 } from "components/Typography";
 import Carousel from "components/carousel/Carousel";
 import ProductCard15 from "components/product-cards/ProductCard15";
 import useWindowSize from "hooks/useWindowSize";
+import card1 from "../../../public/assets/images/Gift Shop/card1.png";
+import card2 from "../../../public/assets/images/Gift Shop/card2.png";
+import card5 from "../../../public/assets/images/Gift Shop/card5.png";
 // ===============================================
 
 const Section4 = ({ categoryList }) => {
   const theme = useTheme();
   const width = useWindowSize();
   const [visibleSlides, setVisibleSlides] = useState(3);
+
+  const categoryData = [
+    { id: 1, image: card1, title: "Toys", description: "13 available items" },
+    {
+      id: 2,
+      image: card2,
+      title: "Toy Cars",
+      description: "20 available items",
+    },
+    { id: 3, image: card5, title: "Rings", description: "18 available items" },
+  ];
   useEffect(() => {
     if (width < 500) setVisibleSlides(1);
     else if (width < 650) setVisibleSlides(2);
@@ -20,6 +35,7 @@ const Section4 = ({ categoryList }) => {
   return (
     <Box>
       <H1 my={2}>Top Categories</H1>
+
       <Carousel
         infinite={true}
         visibleSlides={visibleSlides}
@@ -38,13 +54,20 @@ const Section4 = ({ categoryList }) => {
           },
         }}
       >
-        {categoryList.map((item, ind) => (
-          <Link href="#" key={ind}>
-            <ProductCard15
-              title={item.name}
-              available={item.description}
-              imgUrl={item.image}
-            />
+        {categoryData.map((item) => (
+          <Link
+            href={`path${item.id}`}
+            key={item.id}
+            className="flex flex-col "
+          >
+            <div className="bg-[#D23F57] bg-opacity-40 h-[10rem] py-6 object-contain rounded-t-md flex justify-center">
+              <Image src={item.image} width={200} height={100} />
+            </div>
+
+            <div className="flex flex-col items-center bg-white p-4 rounded-b-md shadow-inherit">
+              <span className="font-medium text-[16.2px]">{item.title}</span>
+              <span className="pt-2 text-gray-500">{item.description}</span>
+            </div>
           </Link>
         ))}
       </Carousel>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Box, Container, Grid, IconButton, styled } from "@mui/material";
 import AppStore from "components/AppStore";
-import Image from "components/BazaarImage";
+// import Image from "components/BazaarImage";
 import { FlexBox } from "components/flex-box";
 import { Paragraph } from "components/Typography";
 import Google from "components/icons/Google";
@@ -9,7 +9,8 @@ import Twitter from "components/icons/Twitter";
 import Youtube from "components/icons/Youtube";
 import Facebook from "components/icons/Facebook";
 import Instagram from "components/icons/Instagram";
-
+import Image from "next/image";
+import logo from '../../assets/logo.png'
 // styled component
 const StyledLink = styled(Link)(({ theme }) => ({
   display: "block",
@@ -35,14 +36,16 @@ const Footer1 = () => {
           <Box py={10} overflow="hidden">
             <Grid container spacing={3}>
               <Grid item lg={4} md={6} sm={6} xs={12}>
-                <Link href="/">
-                  <Image mb={2.5} src="/assets/images/logo.svg" alt="logo" />
-                </Link>
+                {/* <Link href="/">
+                <Image height={64} width={72} src={logo} alt="logo" />
+                </Link> */}
+                {/* <Image src='../../assets/logo.png' style={{}}/> */}
 
                 <Paragraph mb={2.5} color="grey.500">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Auctor libero id et, in gravida. Sit diam duis mauris nulla
-                  cursus. Erat et lectus vel ut sollicitudin elit at amet.
+                  Discover the latest trends and exclusive deals at Paraba, your
+                  go-to destination for premium shopping. Our curated selection
+                  of high-quality products ensures you find the perfect items
+                  for any occasion. 
                 </Paragraph>
 
                 <AppStore />
@@ -100,15 +103,15 @@ const Footer1 = () => {
                 </Box>
 
                 <Box py={0.6} color="grey.500">
-                  70 Washington Square South, New York, NY 10012, United States
+                  Accra, Ablekumah Olebu
                 </Box>
 
                 <Box py={0.6} color="grey.500">
-                  Email: uilib.help@gmail.com
+                  Email: info@gmail.com
                 </Box>
 
                 <Box py={0.6} mb={2} color="grey.500">
-                  Phone: +1 1123 456 780
+                  Phone: +233 599678566
                 </Box>
 
                 <FlexBox className="flex" mx={-0.625}>

@@ -72,7 +72,7 @@ const MegaMenu = ({ title, menuList }) => {
             overflow: "hidden",
           }}
         >
-          <Grid container>
+          {/* <Grid container>
             {menuList.slice(0, 4).map((category, key) => (
               <Grid
                 item
@@ -104,7 +104,7 @@ const MegaMenu = ({ title, menuList }) => {
                 })}
               </Grid>
             ))}
-          </Grid>
+          </Grid> */}
         </BazaarCard>
       </MenusContainer>
     </Wrapper>

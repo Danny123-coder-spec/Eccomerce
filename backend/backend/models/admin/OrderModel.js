@@ -7,6 +7,7 @@ const orderSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  
   products: [
     {
       product: {
@@ -17,6 +18,11 @@ const orderSchema = new mongoose.Schema({
       quantity: { type: Number, required: true },
     },
   ],
+  status: {
+    type: String,
+    default: 'Processing',
+    enum: ['Processing', 'Pending', 'Delivered', 'Cancelled'],
+  },
   shippingAddress:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"Address",

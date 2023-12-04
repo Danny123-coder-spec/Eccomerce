@@ -7,6 +7,6 @@ const router = createRouter();
 
 dbConnect();
 
-router.post(getAllProducts);
+router.get(getAllProducts);
 
 export default router.handler();

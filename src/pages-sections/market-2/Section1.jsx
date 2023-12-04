@@ -4,6 +4,8 @@ import { BannerCard3 } from "components/banners";
 import Carousel from "components/carousel/Carousel";
 import { H4, Paragraph } from "components/Typography";
 import { CarouselCard4 } from "components/carousel-cards";
+import Image from "next/image";
+import heroImg from '../../assets/hero.jpeg'
 // ======================================================
 
 const Section1 = ({ carouselData }) => {
@@ -28,7 +30,12 @@ const Section1 = ({ carouselData }) => {
   return (
     <Box pt={3}>
       <Container>
-        <Grid container spacing={2}>
+        <Image src={heroImg} style={{
+          width: '100%',
+          height: 'auto',
+          resizeMode: 'contain'
+        }}/>
+        {/* <Grid container spacing={2}>
           <Grid item md={9} xs={12}>
             <Carousel
               spacing="0px"
@@ -95,7 +102,7 @@ const Section1 = ({ carouselData }) => {
               </BannerCard3>
             </Stack>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Container>
     </Box>
   );

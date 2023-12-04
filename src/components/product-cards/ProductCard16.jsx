@@ -135,7 +135,7 @@ const ProductCard16 = (props) => {
     <StyledCard sx={sx}>
       <ImgBox id="imgBox">
         {discount !== 0 && (
-          <StyledChip color="primary" size="small" label={`${discount}% off`} />
+          <StyledChip color="primary" size="small" label={`free Shipping`} />
         )}
 
         <Link href={`/product/${slug}`}>

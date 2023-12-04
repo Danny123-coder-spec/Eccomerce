@@ -11,7 +11,7 @@ import Icon from "components/icons";
 import { layoutConstant } from "utils/constants";
 import Login from "pages-sections/sessions/Login";
 import { useAppContext } from "contexts/AppContext";
-import Image from "components/BazaarImage";
+// import Image from "components/BazaarImage";
 import MiniCart from "components/MiniCart";
 import Category from "components/icons/Category";
 import { Paragraph } from "components/Typography";
@@ -19,7 +19,8 @@ import MobileMenu from "components/navbar/MobileMenu";
 import { FlexBetween, FlexBox } from "components/flex-box";
 import CategoryMenu from "components/categories/CategoryMenu";
 import ShoppingBagOutlined from "components/icons/ShoppingBagOutlined";
-
+import Image from 'next/image'
+import logo from '../../assets/logo.png'
 // styled component
 export const HeaderWrapper = styled(Box)(({ theme }) => ({
   zIndex: 3,
@@ -101,8 +102,8 @@ const Header = ({ isFixed, className, searchInput }) => {
             {/* MIDDLE CONTENT - LOGO */}
             <Link href="/">
               <Image
-                height={44}
-                src="/assets/images/bazaar-black-sm.svg"
+                height={50}
+                src={logo}
                 alt="logo"
               />
             </Link>
@@ -166,7 +167,7 @@ const Header = ({ isFixed, className, searchInput }) => {
         {/* LEFT CONTENT - LOGO AND CATEGORY */}
         <FlexBox mr={2} minWidth="170px" alignItems="center">
           <Link href="/">
-            <Image height={44} src="/assets/images/logo2.svg" alt="logo" />
+            <Image height={64} width={72} src={logo} alt="logo" />
           </Link>
 
           {/* SHOW DROP DOWN CATEGORY BUTTON WHEN HEADER FIXED */}

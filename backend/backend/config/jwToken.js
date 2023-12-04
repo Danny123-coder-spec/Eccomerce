@@ -6,3 +6,5 @@ const generateToken = (res,id) => {
 };
 
 export default generateToken;
+
+

@@ -9,6 +9,7 @@ import Twitter from "components/icons/Twitter";
 import Youtube from "components/icons/Youtube";
 import Facebook from "components/icons/Facebook";
 import Instagram from "components/icons/Instagram";
+import Image from "next/image";
 
 // styled components
 const StyledFooter = styled("footer")(({ theme, bgcolor }) => ({
@@ -39,19 +40,20 @@ const Footer3 = ({ sx, id, bgcolor }) => {
   return (
     <StyledFooter id={id} sx={sx} bgcolor={bgcolor}>
       <Container>
-        <Link href="/">
+        {/* <Link href="/">
           <BazaarImage mb={2.5} src="/assets/images/logo.svg" alt="logo" />
-        </Link>
+        </Link> */}
+        <Image src='../../assets/logo.png' style={{}}/>
 
         <Grid container spacing={6}>
           <Grid item md={6} sm={6} xs={12}>
-            <Paragraph mb={2.5} color="grey.300" maxWidth="370px">
+            {/* <Paragraph mb={2.5} color="grey.300" maxWidth="370px">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Auctor
               libero id et, in gravida. Sit diam duis mauris nulla cursus. Erat
               et lectus vel ut sollicitudin elit at amet.
             </Paragraph>
 
-            <AppStore />
+            <AppStore /> */}
           </Grid>
 
           <Grid item md={6} sm={6} xs={12}>

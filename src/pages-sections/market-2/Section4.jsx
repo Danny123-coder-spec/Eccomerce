@@ -12,6 +12,23 @@ import { carouselStyled } from "components/carousel/styles";
 const Section4 = ({ products }) => {
   const width = useWindowSize();
   const [visibleSlides, setVisibleSlides] = useState(4);
+  const [productsArr, setProductsArr] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/admin/products/getProducts"
+        );
+        console.log(response);
+        setProductsArr(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   useEffect(() => {
     if (width < 426) setVisibleSlides(1);
     else if (width < 650) setVisibleSlides(2);
@@ -19,6 +36,7 @@ const Section4 = ({ products }) => {
     else if (width < 1200) setVisibleSlides(4);
     else setVisibleSlides(5);
   }, [width]);
+
   return (
     <Container
       sx={{
@@ -36,7 +54,9 @@ const Section4 = ({ products }) => {
         sx={carouselStyled}
       >
         {products.map((product) => (
-          <ProductCard20 product={product} key={product.id} />
+          // <div className='bg-'>
+           <ProductCard20 product={product} key={product.id} />
+          // </div>
         ))}
       </Carousel>
     </Container>

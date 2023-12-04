@@ -45,10 +45,10 @@ const Section5 = ({ data }) => {
               border: 0,
             }}
           >
-            {/* MAIN CATEGORY NAME/TITLE */}
+           
             <H3>{data.category.title}</H3>
 
-            {/* SUB CATEGORY LIST */}
+            
             <List
               sx={{
                 mb: 2,

@@ -28,7 +28,7 @@ const ProductCard15 = (props) => {
     <StyledCard sx={sx}>
       <ImgBox>
         <Image
-          alt={title}
+          // alt={title}
           width={800}
           height={200}
           src={imgUrl}

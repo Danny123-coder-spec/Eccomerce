@@ -1,9 +1,20 @@
-import { Box, Container, Grid, styled } from "@mui/material";
+import { Box, Container, Grid,Card, styled } from "@mui/material";
 import { FlexBox } from "components/flex-box";
 import { slideX } from "animations/keyframes";
 import WhiteButton from "components/WhiteButton";
 import { H3, Paragraph, Span } from "components/Typography";
 import CategoryCard1 from "components/category-cards/CategoryCard1";
+
+// const StyledListItem = styled(ListItem)(({ theme }) => ({
+//   fontSize: 13,
+//   fontWeight: 500,
+//   cursor: "pointer",
+//   padding: "10px 0 0 0",
+//   transition: "all 0.3s",
+//   ":hover": {
+//     color: theme.palette.primary.main,
+//   },
+// }));
 // custom styled components
 const AdWrapper = styled(FlexBox)(({ theme }) => ({
   color: "#fff",
@@ -52,13 +63,46 @@ const AdTitle1 = styled(H3)(({ theme }) => ({
 
 // ===========================================================
 
-const Section3 = ({ categories }) => {
+const Section3 = ({ categories, data }) => {
   return (
     <Container
       sx={{
         mt: 8,
       }}
     >
+      
+      
+       {/* <Grid item md={3} xs={12}>
+        <Card
+          elevation={0}
+          sx={{
+            px: 4,
+            height: "100%",
+            py: 2,
+            borderRadius: "3px",
+            border: 0,
+          }}
+        >
+          <H3>{data.category.title}</H3>
+
+          <List
+            sx={{
+              mb: 2,
+            }}
+          >
+            {data.category.children.map((item) => (
+              <StyledListItem key={item}>{item}</StyledListItem>
+            ))}
+          </List>
+
+          <NavLink3
+            href="#"
+            text="Browse All"
+            color="dark.main"
+            hoverColor="dark.main"
+          />
+        </Card>
+      </Grid>  */}
       <Grid container spacing={3}>
         {categories.map((item) => (
           <Grid item lg={2} md={3} sm={4} xs={6} key={item.id}>

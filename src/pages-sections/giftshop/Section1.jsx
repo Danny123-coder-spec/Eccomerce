@@ -1,6 +1,9 @@
 import { Box, Button, Grid, styled, useTheme } from "@mui/material";
 import LazyImage from "components/LazyImage";
 import Carousel from "components/carousel/Carousel";
+import Image from "next/image";
+import heroImg from '../../assets/hero.jpeg'
+import bg from '../../assets/bg2.jpeg'
 import { H1, Paragraph } from "components/Typography";
 // styled components
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -74,50 +77,31 @@ const Section1 = ({ carouselData }) => {
   const { palette } = useTheme();
   return (
     <StyledBox id="carouselBox">
+      
       <Carousel
         spacing="0px"
         showDots={true}
-        autoPlay={false}
+        autoPlay={true}
         visibleSlides={1}
         showArrow={false}
         dotClass="carousel-dot"
         dotColor={palette.primary.main}
         totalSlides={carouselData.length}
       >
-        {carouselData.map(({ id, title, subTitle, buttonText, imgUrl }) => (
-          <StyledGrid py={3} container key={id}>
-            <GridItemOne item md={6} sm={6} xs={12}>
-              <Box py={6}>
-                <Paragraph color="primary.main">{subTitle}</Paragraph>
-                <Box className="titleBox">
-                  <H1 maxWidth={400}>{title}</H1>
-                </Box>
-
-                <StyledButton
-                  variant="contained"
-                  sx={{
-                    px: "30px",
-                    py: "8px",
-                  }}
-                >
-                  {buttonText}
-                </StyledButton>
-              </Box>
-            </GridItemOne>
-
-            <GridItemTwo item md={6} sm={6} xs={12}>
-              <LazyImage
-                priority
-                alt={title}
-                width={600}
-                height={450}
-                src={imgUrl}
-              />
-            </GridItemTwo>
-          </StyledGrid>
-        ))}
+        
+        <Image src={heroImg} style={{
+          width: '100%',
+          height: 'auto',
+          resizeMode: 'contain'
+        }}/>
+        <Image src={bg} style={{
+          width: '100%',
+          height: 'auto',
+          resizeMode: 'contain'
+        }}/>
       </Carousel>
     </StyledBox>
   );
 };
 export default Section1;
+
