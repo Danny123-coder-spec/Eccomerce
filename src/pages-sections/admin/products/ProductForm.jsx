@@ -5,18 +5,58 @@ import DropZone from "components/DropZone";
 import { FlexBox } from "components/flex-box";
 import BazaarImage from "components/BazaarImage";
 import { UploadImageBox, StyledClear } from "../StyledComponents";
-import {initializeApp} from 'firebase/app'
-
 import { firebaseConfig, firebaseStorageUrl } from "utils";
-import {getStorage, ref, uploadBytes} from 'firebase/storage'
+import { initializeApp } from "firebase/app";
+import {
+  getDownloadURL,
+  getStorage,
+  uploadBytesResumable,
+  ref
+} from "firebase/storage";
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import { Box, Divider } from "@mui/material";
+
 const app = initializeApp(firebaseConfig);
 
-const storage = getStorage(app, firebaseStorageUrl)
+const storage = getStorage(app, firebaseStorageUrl);
 
+// const storage = getStorage(app, firebaseStorageUrl)
+
+const createUniqueFileName = (getFile) => {
+  const timeStamp = Date.now();
+  const randomStringValue = Math.random().toString(36).substring(2, 12);
+
+  return `${getFile.name}-${timeStamp}-${randomStringValue}`;
+};
+
+async function helperForUploadingImageToFirebase(file) {
+  const getFileName = createUniqueFileName(file);
+
+  const storageReference = ref(storage, `eccomerce/${getFileName}`);
+  const uploadImage = uploadBytesResumable(storageReference, file);
+
+  return new Promise((resolve, reject) => {
+    uploadImage.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+        reject(error);
+      },
+      () => {
+        getDownloadURL(uploadImage.snapshot.ref)
+          .then((downloadUrl) => resolve(downloadUrl))
+          .catch((error) => reject(error));
+      }
+    );
+  });
+}
 const ProductForm = (props) => {
   const { initialValues, validationSchema, handleFormSubmit } = props;
   const [files, setFiles] = useState([]);
-  const [img, setImg] = useState('')
+  const [img, setImg] = useState("");
+
 
   // HANDLE UPDATE NEW IMAGE VIA DROP ZONE
   const handleChangeDropZone = (files) => {
@@ -28,24 +68,14 @@ const ProductForm = (props) => {
     setFiles(files);
   };
 
-  // const handleImage = async(event) => {
-  //   try {
-  //     const file = event.target.files[0];
-  //     const storageRef = ref(storage, 'images/' + file.name);
-      
-  //     // Upload file to Firebase Storage
-  //     await uploadBytes(storageRef, file);
-      
-  
-  //     console.log('Image uploaded successfully');
-  //   } catch (error) {
-  //     console.error('Error uploading image:', error);
-  //   }
+  async function handleImage(event) {
+    console.log(event.target.files);
+    const extractImageUrl = await helperForUploadingImageToFirebase(
+      event.target.files[0]
+    );
+    console.log(extractImageUrl);
 
-  // }
-
-  const handleClick = () => {
-    ref()
+   
   }
 
   // HANDLE DELETE UPLOAD IMAGE
@@ -88,7 +118,7 @@ const ProductForm = (props) => {
                   helperText={touched.name && errors.name}
                 />
               </Grid>
-              
+
               <Grid item sm={6} xs={12}>
                 <TextField
                   fullWidth
@@ -112,13 +142,49 @@ const ProductForm = (props) => {
                 </TextField>
               </Grid>
 
+              {/* <DropZone onChange={(files) => handleChangeDropZone(files)} /> */}
               <Grid item xs={12}>
-                <DropZone onChange={(files) => handleChangeDropZone(files)} />
+                <Box
+                  py={4}
+                  px={{
+                    md: 10,
+                    xs: 4,
+                  }}
+                  display="flex"
+                  minHeight="200px"
+                  alignItems="center"
+                  borderRadius="10px"
+                  border="1.5px dashed"
+                  flexDirection="column"
+                  borderColor="grey.300"
+                  justifyContent="center"
+                  textAlign="center"
+                >
+                  <Button
+                    type="button"
+                    variant="outlined"
+                    color="info"
+                    sx={{
+                      px: 4,
+                      my: 4,
+                    }}
+                  >
+                    <input
+                      className="bg-transparent border-none"
+                      type="file"
+                      onChange={handleImage}
+                      accept="image/"
+                      max="1000000"
+                    />
+                  </Button>
+
+                  <span color="grey.600"></span>
+                </Box>
 
                 <FlexBox flexDirection="row" mt={2} flexWrap="wrap" gap={1}>
                   {files.map((file, index) => {
                     return (
-                      <UploadImageBox key={index} onClick={handleClick} onChange={(e) => setImg(e.target.files[0])}>
+                      <UploadImageBox key={index} onChange={handleImage}>
                         <BazaarImage src={file.preview} width="100%" />
                         <StyledClear onClick={handleFileDelete(file)} />
                       </UploadImageBox>
@@ -126,7 +192,7 @@ const ProductForm = (props) => {
                   })}
                 </FlexBox>
               </Grid>
-
+              {/* onChange={(e) => setImg(e.target.files[0])} */}
               <Grid item xs={12}>
                 <TextField
                   rows={6}
@@ -170,7 +236,6 @@ const ProductForm = (props) => {
                   onBlur={handleBlur}
                   value={values.tags}
                   onChange={handleChange}
-                  
                   error={!!touched.tags && !!errors.tags}
                   helperText={touched.tags && errors.tags}
                 />
@@ -209,7 +274,7 @@ const ProductForm = (props) => {
               </Grid>
 
               <Grid item sm={6} xs={12}>
-                <Button variant="contained" color="info" type="submit">
+                <Button variant="contained" className="bg-blue-400 text" type="submit">
                   Save product
                 </Button>
               </Grid>

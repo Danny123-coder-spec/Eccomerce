@@ -4,16 +4,16 @@ import { H3, H4 } from "components/Typography";
 import { FlexRowCenter } from "components/flex-box";
 const AvailableShops = () => {
   return (
-    <Box mb={7.5}>
+    <Box mb={7.5} mt={7}>
       <H3 mb={3}>Also Available at</H3>
 
       <Grid container spacing={4}>
         {shopList.map((item) => (
-          <Grid item lg={2} md={3} sm={4} xs={12} key={item.name}>
+          <Grid item lg={3} md={3} sm={4} xs={12} key={item.name}>
             <Link href="/shops/scarlett-beauty">
               <FlexRowCenter
                 p={3.25}
-                width="100%"
+                
                 component={Card}
                 flexDirection="column"
               >

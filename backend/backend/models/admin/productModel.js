@@ -4,41 +4,34 @@ const productSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+     
     },
+    seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     category: {
       type: String,
-      required:true
+     
     },
-    images:[
-      {
-        public_id: {
-          type: String,
-        },
-        url: {
-          type: String,
-        },
+    imageUrl:{
+        type: String,
       },
-    ],
     description: {
       type: String,
-      required: true,
+     
     },
     stock: {
       type: Number,
-      required: true,
+      
     },
     price:{
       type: Number,
-      required: true,
+      
     },   
     sale_price:{
       type:Number,
-      required:true,
+      
     },
     tags: {
       type: String,
-      default: [],
     },
     ratings: {
       type: Number,
@@ -48,11 +41,11 @@ const productSchema = new mongoose.Schema(
       {
         rating: {
           type: Number,
-          required: true,
+         
         },
         comment: {
           type: String,
-          required: true,
+         
         },
       },
     ],

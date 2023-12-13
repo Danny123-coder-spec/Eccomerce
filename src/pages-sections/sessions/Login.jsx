@@ -2,14 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Card, Box, styled } from "@mui/material";
 import axios from "axios";
-import {
-  Grid,
-  MenuItem,
-  TextField
-} from "@mui/material";
-
+import { Grid, MenuItem, TextField } from "@mui/material";
+import Image from "next/image";
+import logo from "../../assets/logo.png";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -56,47 +53,44 @@ export const Wrapper = styled(({ children, passwordVisibility, ...rest }) => (
 
 const Login = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
-  const {use, setUser, isAuthUser, setIsAuthUser} = useAppContext();
+  // const {use, setUser, isAuthUser, setIsAuthUser} = useAppContext();
   const togglePasswordVisibility = useCallback(() => {
     setPasswordVisibility((visible) => !visible);
   }, []);
 
   const router = useRouter();
   const handleFormSubmit = async (values) => {
-    
     try {
-      const response = await axios.post("http://localhost:3000/api/users/auth", values)
+      const response = await axios.post(
+        "http://localhost:3000/api/users/auth",
+        values
+      );
       console.log(response.data);
-      console.log(response.data.auth.role)
+      console.log(response.data.auth.role);
 
-      if(response.data.status === 200) {
-        
-        toast.success('Login successfull');
-        setIsAuthUser(true)
-        setUser(response?.data?.auth);
+      if (response.data.status === 200) {
+        toast.success("Login successfull");
+        // setIsAuthUser(true)
+
         const userRole = response.data.auth.role;
 
-        switch(userRole) {
-          case 'admin':
-            router.push('/vendor/dashboard');
+        switch (userRole) {
+          case "admin":
+            router.push("/vendor/dashboard");
             break;
-          case 'vendor':
-            router.push('/vendor/dashboard');
+          case "vendor":
+            router.push("/vendor/dashboard");
             break;
           default:
-            router.push('/');
+            router.push("/");
         }
-  
       } else {
-        toast.error(`Login failed ${response.data.message}`)  
+        toast.error(`Login failed ${response.data.message}`);
       }
     } catch (error) {
-      toast.error(`Login failed: ${error.message}`)
-
+      toast.error(`Login failed: ${error.message}`);
     }
   };
-
-  
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -106,15 +100,18 @@ const Login = () => {
     });
   return (
     <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
-       <ToastContainer />
+      <ToastContainer />
       <form onSubmit={handleSubmit}>
-        <BazaarImage
+        {/* <BazaarImage
           src="/assets/images/logo.svg"
           sx={{
             m: "auto",
           }}
-        />
+        /> */}
 
+        <div className="flex justify-center">
+          <Image height={50} width={70} src={logo} alt="logo" />
+        </div>
         <H1 textAlign="center" mt={1} mb={4} fontSize={16}>
           Welcome To Shop
         </H1>
@@ -163,7 +160,7 @@ const Login = () => {
         <Button
           fullWidth
           type="submit"
-          color="primary"
+          className="bg-[#D23F57] text-white hover:bg-[#D23F57]"
           variant="contained"
           sx={{
             height: 44,

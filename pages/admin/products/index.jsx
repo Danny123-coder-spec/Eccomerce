@@ -1,5 +1,6 @@
 import { Box, Card, Stack, Table, TableContainer } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
+import { useState, useEffect } from "react";
 import SearchArea from "components/dashboard/SearchArea";
 import TableHeader from "components/data-table/TableHeader";
 import TablePagination from "components/data-table/TablePagination";
@@ -9,6 +10,8 @@ import useMuiTable from "hooks/useMuiTable";
 import Scrollbar from "components/Scrollbar";
 import { ProductRow } from "pages-sections/admin";
 import api from "utils/__api__/dashboard";
+import { baseURL } from "../../../src/axios";
+import Router, { useRouter } from "next/router";
 // TABLE HEADING DATA LIST
 const tableHeading = [
   {
@@ -21,19 +24,19 @@ const tableHeading = [
     label: "Category",
     align: "left",
   },
-  {
-    id: "brand",
-    label: "Brand",
-    align: "left",
-  },
+  // {
+  //   id: "brand",
+  //   label: "Brand",
+  //   align: "left",
+  // },
   {
     id: "price",
     label: "Price",
     align: "left",
   },
   {
-    id: "published",
-    label: "Published",
+    id: "description",
+    label: "Description",
     align: "left",
   },
   {
@@ -49,17 +52,36 @@ ProductList.getLayout = function getLayout(page) {
 
 // =============================================================================
 export default function ProductList(props) {
+  const [productsData, setProductData] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
   const { products } = props; // RESHAPE THE PRODUCT LIST BASED TABLE HEAD CELL ID
 
-  const filteredProducts = products.map((item) => ({
-    id: item.id,
-    name: item.title,
-    brand: item.brand,
-    price: item.price,
-    image: item.thumbnail,
-    published: item.published,
-    category: item.categories[0],
-  }));
+  // const filteredProducts = productsData.map((item) => ({
+  //   id: item?._id,
+  //   name: item.name,
+  //   // brand: item.brand,
+  //   price: item?.price,
+  //   image: item?.imageUrl,
+  //   description: item?.description,
+  //   category: item?.category,
+  // }));
+
+  const filteredProducts = productsData
+    .filter(
+      (item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchValue.toLowerCase()) ||
+        item.price.toString().includes(searchValue.toLowerCase()) ||
+        item.description.toLowerCase().includes(searchValue.toLowerCase())
+    )
+    .map((item) => ({
+      id: item?._id,
+      name: item.name,
+      price: item?.price,
+      image: item?.imageUrl,
+      description: item?.description,
+      category: item?.category,
+    }));
   const {
     order,
     orderBy,
@@ -71,14 +93,26 @@ export default function ProductList(props) {
   } = useMuiTable({
     listData: filteredProducts,
   });
+
+  useEffect(() => {
+    const fetchAllProducts = async () => {
+      const response = await baseURL.get("/admin/products/getAllProduct");
+      setProductData(response?.data);
+    };
+
+    fetchAllProducts();
+  }, []);
+
+  const router = useRouter();
+
   return (
     <Box py={4}>
       <H3 mb={2}>Product List</H3>
 
       <SearchArea
-        handleSearch={() => {}}
+        handleSearch={(value) => setSearchValue(value)}
         buttonText="Add Product"
-        handleBtnClick={() => {}}
+        handleBtnClick={() => router.push("/admin/products/create")}
         searchPlaceholder="Search Product..."
       />
 

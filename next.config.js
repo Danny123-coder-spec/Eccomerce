@@ -8,6 +8,9 @@ module.exports = {
     theme: "DEFAULT",
     currency: "USD",
   },
+  images: {
+    domains: ['firebasestorage.googleapis.com'],
+  },
 };
 
 // const withBundleAnalyzer = require("@next/bundle-analyzer")({

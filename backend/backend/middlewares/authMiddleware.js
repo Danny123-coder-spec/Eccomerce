@@ -38,13 +38,37 @@ const protect = (handler) => async (req, res) => {
 //   }
 };
 
-const isAdmin = async (req, res, next) => {
-  console.log(req.user);
-  // Add your isAdmin logic here
-};
+// const isAdmin = async (req, res, next) => {
+//   console.log(req.user);
+//   // Add your isAdmin logic here
+// };
 
-export { protect, isAdmin };
+// export { protect, isAdmin };
 
+
+import passport from 'passport';
+import User from '../models/users/userModel';
+import LocalStrategy from 'passport-local';
+import initializePassport from './initializePassport';
+
+
+initializePassport(passport);
+
+const authMiddleware = (handler) => async(req, res) => {
+  await new Promise((resolve, reject) => {
+    passport.authenticate('local', (err, user) => {
+      if(err) reject(err);
+      req.logIn(user, (err) => {
+        if(err) reject(err);
+        resolve();
+      })
+    })(req, res);
+  });
+
+  return handler(req, res);
+}
+
+export default authMiddleware;
 
 
 

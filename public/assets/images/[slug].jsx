@@ -1,7 +1,9 @@
+import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { Box, Container, styled, Tab, Tabs } from "@mui/material";
 import { H2 } from "components/Typography";
+import card3 from "../../public/assets/images/Gift Shop/card8.png";
 import ShopLayout1 from "components/layouts/ShopLayout1";
 import ProductIntro from "pages-sections/product-details/ProductIntro";
 import ProductReview from "pages-sections/product-details/ProductReview";
@@ -15,7 +17,6 @@ import {
 } from "utils/__api__/related-products";
 import api from "utils/__api__/products";
 
-// styled component
 const StyledTabs = styled(Tabs)(({ theme }) => ({
   minHeight: 0,
   marginTop: 80,
@@ -28,20 +29,18 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
   },
 }));
 
-// ===============================================================
-
-// ===============================================================
-
 const ProductDetails = (props) => {
-  const { frequentlyBought, relatedProducts, product } = props;
+  const { frequentlyBought, relatedProducts} = props;
   const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(0);
   const handleOptionClick = (_, value) => setSelectedOption(value);
-
-  // Show a loading state when the fallback is rendered
   if (router.isFallback) {
     return <h1>Loading...</h1>;
   }
+
+  const productId = router.query.id;
+
+
   return (
     <ShopLayout1>
       <Container
@@ -49,16 +48,14 @@ const ProductDetails = (props) => {
           my: 4,
         }}
       >
-        {/* PRODUCT DETAILS INFO AREA */}
-        {product ? <ProductIntro product={product} /> : <H2>Loading...</H2>}
 
-        {/* PRODUCT DESCRIPTION AND REVIEW */}
+       
         <StyledTabs
           textColor="primary"
           value={selectedOption}
           indicatorColor="primary"
           onChange={handleOptionClick}
-        >
+          >
           <Tab className="inner-tab" label="Description" />
           <Tab className="inner-tab" label="Review (3)" />
         </StyledTabs>
@@ -70,7 +67,7 @@ const ProductDetails = (props) => {
 
         {frequentlyBought && (
           <FrequentlyBought productsData={frequentlyBought} />
-        )}
+          )}
 
         <AvailableShops />
 
@@ -79,6 +76,7 @@ const ProductDetails = (props) => {
     </ShopLayout1>
   );
 };
+
 export const getStaticPaths = async () => {
   const paths = await api.getSlugs();
   return {
@@ -91,13 +89,17 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params }) => {
   const relatedProducts = await getRelatedProducts();
   const frequentlyBought = await getFrequentlyBought();
-  const product = await api.getProduct(params.slug);
+  const product = await api.getProduct(params.id);
+  
   return {
     props: {
+      product,
       frequentlyBought,
       relatedProducts,
-      product,
     },
   };
 };
+
 export default ProductDetails;
+
+{product ? <ProductIntro product={product} /> : <H2>Loading...</H2>}

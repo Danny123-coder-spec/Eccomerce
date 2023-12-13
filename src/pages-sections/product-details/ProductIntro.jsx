@@ -154,7 +154,7 @@ const ProductIntro = ({ product }) => {
 
           {!cartItem?.qty ? (
             <Button
-              color="primary"
+              className="bg-[#D23F57] text-white hover:bg-[#D23F57]"
               variant="contained"
               onClick={handleCartAmountChange(1)}
               sx={{

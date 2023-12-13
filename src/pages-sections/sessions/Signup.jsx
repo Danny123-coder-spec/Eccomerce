@@ -1,18 +1,11 @@
 import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { Button, Checkbox, Box, FormControlLabel } from "@mui/material";
-import CircularProgress from '@mui/material/CircularProgress';
-import {
-
-  Card,
-  Grid,
-  MenuItem,
-  TextField,
-  styled,
-
-  alpha,
-} from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Card, Grid, MenuItem, TextField, styled, alpha } from "@mui/material";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "../../assets/logo.png";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import { FlexBox, FlexRowCenter } from "components/flex-box";
@@ -24,7 +17,7 @@ import SocialButtons from "./SocialButtons";
 import EyeToggleButton from "./EyeToggleButton";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
@@ -36,21 +29,22 @@ const Signup = () => {
 
   const handleFormSubmit = async (values) => {
     try {
-      const response = await axios.post("http://localhost:3000/api/users/register", values);
+      const response = await axios.post(
+        "http://localhost:3000/api/users/register",
+        values
+      );
       console.log(response.data);
       if (response.data.status === 200) {
-        toast.success('Registration successful. Please Login');
-        router.push('/login');
+        toast.success("Registration successful. Please Login");
+        router.push("/login");
       } else if (response.data.status === 400) {
-        toast.error('User already exists. Please Login');
+        toast.error("User already exists. Please Login");
       } else {
         toast.error(`Registration failed: ${response.data.message}`);
       }
     } catch (error) {
       toast.error(`Registration failed: ${response.data.message}`);
-
     }
-
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -63,12 +57,16 @@ const Signup = () => {
     <Wrapper elevation={3} passwordVisibility={passwordVisibility}>
       <ToastContainer />
       <form onSubmit={handleSubmit}>
-        <BazaarImage
+        {/* <BazaarImage
           src="/assets/images/logo.svg"
           sx={{
             m: "auto",
           }}
-        />
+        /> */}
+
+        <div className="flex justify-center">
+          <Image height={50} width={70} src={logo} alt="logo" />
+        </div>
 
         <H1 textAlign="center" mt={1} mb={4} fontSize={16}>
           Create Your Account
@@ -171,7 +169,7 @@ const Signup = () => {
             helperText={touched.role && errors.role}
           >
             <MenuItem value="customer">customer</MenuItem>
-            <MenuItem value="admin">admin</MenuItem>
+            
             <MenuItem value="vendor">vendor</MenuItem>
           </TextField>
         </Grid>
@@ -206,7 +204,7 @@ const Signup = () => {
         <Button
           fullWidth
           type="submit"
-          color="primary"
+          className="bf-btn bg-[#D23F57] text-white hover:bg-[#D23F57]"
           variant="contained"
           sx={{
             height: 44,

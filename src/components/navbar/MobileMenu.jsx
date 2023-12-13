@@ -11,6 +11,7 @@ import { H6 } from "components/Typography";
 import Scrollbar from "components/Scrollbar";
 import { NavLink } from "components/nav-link";
 import navbarNavigations from "data/navbarNavigations";
+import Link from "next/link";
 const MobileMenu = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -142,7 +143,47 @@ const MobileMenu = () => {
                 <Clear fontSize="small" />
               </IconButton>
 
-              {renderLevels(updateNavigations)}
+              {/* {renderLevels(updateNavigations)} */}
+              <div className="flex flex-col items-center gap-8 pt-4">
+                <Link
+                  className={`font-medium hover:text-[#D23F57] transition-all duration-75 
+                  
+                  }`}
+                  href="/"
+                >
+                  Home
+                </Link>
+                <Link
+                  className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+                  href=""
+                >
+                  Phones & Telecommunications
+                </Link>
+                <Link
+                  className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+                  href=""
+                >
+                  SuperDeals
+                </Link>
+                <Link
+                  className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+                  href=""
+                >
+                  Men's Clothings
+                </Link>
+                <Link
+                  className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+                  href="/user/dashboard"
+                >
+                  User Account
+                </Link>
+                <Link
+                  className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+                  href="/vendor/dashboard"
+                >
+                  Vendor Account
+                </Link>
+              </div>
             </Box>
           </Scrollbar>
         </Box>

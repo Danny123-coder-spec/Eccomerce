@@ -102,6 +102,7 @@ const ProductCard16 = (props) => {
     id,
     slug,
     title,
+    description,
     price,
     thumbnail,
     rating,

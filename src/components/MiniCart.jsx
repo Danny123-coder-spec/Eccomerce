@@ -156,7 +156,7 @@ const MiniCart = ({ toggleSidenav }) => {
               </Link>
 
               <Tiny color="grey.600">
-                {currency(item.price)} x {item.qty}
+               Ghc {(item.price)} x {item.qty}
               </Tiny>
 
               <Box
@@ -165,7 +165,7 @@ const MiniCart = ({ toggleSidenav }) => {
                 color="primary.main"
                 mt={0.5}
               >
-                {currency(item.qty * item.price)}
+               Ghc {(item.qty * item.price)}
               </Box>
             </Box>
 
@@ -186,7 +186,7 @@ const MiniCart = ({ toggleSidenav }) => {
         <Box p={2.5}>
           <Button
             fullWidth
-            color="primary"
+            className="bf-btn bg-[#D23F57] text-white hover:bg-[#ea2949] transistion-all duration-75"
             variant="contained"
             sx={{
               mb: "0.75rem",
@@ -194,7 +194,7 @@ const MiniCart = ({ toggleSidenav }) => {
             }}
             onClick={handleNavigate("/checkout-alternative")}
           >
-            Checkout Now ({currency(getTotalPrice())})
+            Checkout Now Ghc ({(getTotalPrice())})
           </Button>
 
           <Button

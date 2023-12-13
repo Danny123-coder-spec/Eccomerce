@@ -6,8 +6,17 @@ import {
   ChevronRight,
   KeyboardArrowDown,
 } from "@mui/icons-material";
+import { IoPersonOutline } from "react-icons/io5";
+import { Dropdown } from "@mui/base/Dropdown";
+import { Menu } from "@mui/base/Menu";
+import { MenuButton } from "@mui/base/MenuButton";
+import { MenuItem as BaseMenuItem, menuItemClasses } from "@mui/base/MenuItem";
+import acc from '../../assets/user.png'
+import order from '../../assets/sent.png'
 import { NavLink } from "components/nav-link";
+import Link from "next/link";
 import { FlexBox } from "components/flex-box";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import BazaarCard from "components/BazaarCard";
 import Category from "components/icons/Category";
 import { Paragraph } from "components/Typography";
@@ -15,12 +24,10 @@ import CategoryMenu from "components/categories/CategoryMenu";
 import MegaMenu from "./MegaMenu";
 import MegaMenu2 from "./MegaMenu2";
 import useSettings from "hooks/useSettings";
-import Link from "next/link";
 import navbarNavigations from "data/navbarNavigations";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { tr } from "date-fns/locale";
-
-
+import Image from 'next/image'
 // NavList props interface
 
 // const common css style
@@ -34,6 +41,17 @@ const navLinkStyle = {
     marginRight: 0,
   },
 };
+
+const accountInfo = [
+  {id:1, img:{acc}, title:'My Account'},
+  {id:2, img:{order}, title:'Orders'},
+  {id:3, img:{order}, title:'Saved Items'},
+];
+
+// background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
+// border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
+// color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+
 // style components
 const StyledNavLink = styled(NavLink)({
   ...navLinkStyle,
@@ -98,6 +116,18 @@ const ChildNavsWrapper = styled(Box)({
 const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
   const [active, setActive] = useState(false);
   const { settings } = useSettings();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleDropdownOpen = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const createHandleMenuClick = (menuItem) => {
+    return () => {
+      console.log(`Clicked on ${menuItem}`);
+    };
+  };
+
   const renderNestedNav = (list = [], isRoot = false) => {
     return list.map((nav) => {
       if (isRoot) {
@@ -206,7 +236,7 @@ const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
 
   const handleActive = () => {
     setActive(true);
-  }
+  };
   return (
     <NavBarWrapper hoverEffect={false} elevation={elevation} border={border}>
       {!hideCategories ? (
@@ -224,7 +254,6 @@ const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
               >
                 Categories
               </Paragraph>
-
               {settings.direction === "ltr" ? (
                 <ChevronRight className="dropdown-icon" fontSize="small" />
               ) : (
@@ -236,15 +265,78 @@ const Navbar = ({ navListOpen, hideCategories, elevation, border }) => {
           {/* Horizontal menu */}
           {/* <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox> */}
           {/* <FlexBox gap={4}>{renderNestedNav(navbarNavigations, true)}</FlexBox> */}
-          <div className="pr-10">
-            <Link className={`font-medium hover:text-[#D23F57] transition-all duration-75 ${active && 'text-red-500'}`} href="/">Home</Link>
-            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>Phones & Telecommunications</Link>
-            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>SuperDeals</Link>
-            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>Men's Clothings</Link>
-            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>Accessories</Link>
-            <Link className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75" href=''>Customer Electronics</Link>
-            
+          <div className="flex justify-between pr-4 text-[15.6px]">
+            <Link
+              className={`font-medium hover:text-[#D23F57] transition-all duration-75 ${
+                active && "text-red-500"
+              }`}
+              href="/"
+            >
+              Home
+            </Link>
+            <Link
+              className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+              href=""
+            >
+              Phones & Telecommunications
+            </Link>
+            <Link
+              className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+              href=""
+            >
+              SuperDeals
+            </Link>
+            <Link
+              className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+              href="/product/search/shirt"
+            >
+              Men's Clothings
+            </Link>
+            <div className="relative cursor-pointer  pl-9 flex flex-row items-center space-x-1">
+              <IoPersonOutline size={18} />
+              <span
+                onClick={handleDropdownOpen}
+                className=" font-medium hover:text-[#D23F57] transition-all duration-75"
+              >
+                Account
+              </span>
+              <IoIosArrowDown />
+            </div>
+
+            {dropdownOpen && (
+              <div className="flex w-[12rem] flex-col absolute rounded-md shadow-md border border-gray-100 bg-white right-40 p-3 top-14 z-10 ">
+                <Link
+                  href="/login"
+                  className="bg-[#D23F57] text-white font-semibold text-sm rounded-sm text-center p-2.5 hover:bg-[#e32746] transition-all duration-75"
+                >
+                  SIGN IN
+                </Link>
+                <div className="mt-2">
+                  <div className="">
+                    {/* <IoPersonOutline size={18} />
+                    <span className="">My Account</span> */}
+                    {accountInfo.map(account => 
+                    <main className="" key={account.id}>
+                      <div>
+                        <Image width={10} src={account.img} alt="" />
+                        <span>{account.title}</span>
+                      </div>
+
+                    </main>)}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <Link
+              className="pl-9 font-medium hover:text-[#D23F57] transition-all duration-75"
+              href="/vendor/dashboard"
+            >
+              Vendor Account
+            </Link>
           </div>
+
+          {}
         </InnerContainer>
       ) : (
         <InnerContainer

@@ -16,6 +16,7 @@ const SearchArea = (props) => {
 
       <Button
         color="info"
+        className="bg-blue-400"
         fullWidth={downSM}
         variant="contained"
         startIcon={<Add />}

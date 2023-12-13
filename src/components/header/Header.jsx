@@ -102,7 +102,8 @@ const Header = ({ isFixed, className, searchInput }) => {
             {/* MIDDLE CONTENT - LOGO */}
             <Link href="/">
               <Image
-                height={50}
+                height={50} 
+                width={70}
                 src={logo}
                 alt="logo"
               />
@@ -167,7 +168,7 @@ const Header = ({ isFixed, className, searchInput }) => {
         {/* LEFT CONTENT - LOGO AND CATEGORY */}
         <FlexBox mr={2} minWidth="170px" alignItems="center">
           <Link href="/">
-            <Image height={64} width={72} src={logo} alt="logo" />
+            <Image height={50} width={95} src={logo} alt="logo" />
           </Link>
 
           {/* SHOW DROP DOWN CATEGORY BUTTON WHEN HEADER FIXED */}
@@ -190,14 +191,14 @@ const Header = ({ isFixed, className, searchInput }) => {
 
         {/* LOGIN AND CART BUTTON */}
         <FlexBox gap={1.5} alignItems="center">
-          <Box
+          {/* <Box
             component={IconButton}
             p={1.25}
             bgcolor="grey.200"
             onClick={toggleDialog}
           >
             <PersonOutline />
-          </Box>
+          </Box> */}
 
           <Badge badgeContent={state.cart.length} color="primary">
             <Box

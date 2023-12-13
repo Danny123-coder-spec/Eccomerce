@@ -7,6 +7,8 @@ import Scrollbar from "components/Scrollbar";
 import { FlexBetween } from "components/flex-box";
 import { navigations } from "./NavigationList";
 import SidebarAccordion from "./SidebarAccordion";
+import logo from "../../../assets/logo.png";
+
 import {
   ListLabel,
   BadgeValue,
@@ -19,6 +21,7 @@ import {
   ChevronLeftIcon,
   ListIconWrapper,
 } from "./LayoutStyledComponents";
+import { Link } from "react-scroll";
 const TOP_HEADER_AREA = 70;
 
 // -----------------------------------------------------------------------------
@@ -76,11 +79,8 @@ const DashboardSidebar = (props) => {
               ) : (
                 <span className="item-icon icon-text">{item.iconText}</span>
               )}
-
               <StyledText compact={COMPACT}>{item.name}</StyledText>
-
               {/* <Box mx="auto" /> */}
-
               {item.badge && (
                 <BadgeValue compact={COMPACT}>{item.badge.value}</BadgeValue>
               )}
@@ -138,13 +138,23 @@ const DashboardSidebar = (props) => {
         onClose={setShowMobileSideBar}
       >
         <Box p={2} maxHeight={TOP_HEADER_AREA}>
-          <Image
+          {/* <Image
             alt="Logo"
             width={105}
             height={50}
             src="/assets/images/logo.svg"
             style={{
               marginLeft: 8,
+            }}
+          /> */}
+
+          <Image
+            height={50}
+            width={90}
+            src={logo}
+            alt="logo"
+            style={{
+              marginLeft: 30,
             }}
           />
         </Box>
@@ -164,7 +174,7 @@ const DashboardSidebar = (props) => {
         maxHeight={TOP_HEADER_AREA}
         justifyContent={COMPACT ? "center" : "space-between"}
       >
-        <Avatar
+        {/* <Avatar
           src={
             COMPACT
               ? "/assets/images/bazaar-white-sm.svg"
@@ -175,8 +185,16 @@ const DashboardSidebar = (props) => {
             width: "auto",
             marginLeft: COMPACT ? 0 : 1,
           }}
+        /> */}
+        <Image
+          height={50}
+          width={90}
+          src={logo}
+          alt="logo"
+          style={{
+            marginLeft: COMPACT ? 0 : 30,
+          }}
         />
-
         <ChevronLeftIcon
           color="disabled"
           compact={COMPACT}

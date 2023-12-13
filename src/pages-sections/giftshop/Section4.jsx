@@ -6,9 +6,9 @@ import { H1 } from "components/Typography";
 import Carousel from "components/carousel/Carousel";
 import ProductCard15 from "components/product-cards/ProductCard15";
 import useWindowSize from "hooks/useWindowSize";
-import card1 from "../../../public/assets/images/Gift Shop/card1.png";
-import card2 from "../../../public/assets/images/Gift Shop/card2.png";
-import card5 from "../../../public/assets/images/Gift Shop/card5.png";
+import card1 from "../../../public/assets/images/Gift Shop/card6.png";
+import card2 from "../../../public/assets/images/Gift Shop/card10.png";
+import card5 from "../../../public/assets/images/Gift Shop/card8.png";
 // ===============================================
 
 const Section4 = ({ categoryList }) => {
@@ -17,14 +17,14 @@ const Section4 = ({ categoryList }) => {
   const [visibleSlides, setVisibleSlides] = useState(3);
 
   const categoryData = [
-    { id: 1, image: card1, title: "Toys", description: "13 available items" },
+    { id: 1, image: card1, title: "Smart Watch", description: "13 available items" },
     {
       id: 2,
       image: card2,
-      title: "Toy Cars",
+      title: "Apple Watch",
       description: "20 available items",
     },
-    { id: 3, image: card5, title: "Rings", description: "18 available items" },
+    { id: 3, image: card5, title: "Apple Airpods", description: "18 available items" },
   ];
   useEffect(() => {
     if (width < 500) setVisibleSlides(1);
@@ -60,8 +60,8 @@ const Section4 = ({ categoryList }) => {
             key={item.id}
             className="flex flex-col "
           >
-            <div className="bg-[#D23F57] bg-opacity-40 h-[10rem] py-6 object-contain rounded-t-md flex justify-center">
-              <Image src={item.image} width={200} height={100} />
+            <div className="bg-[#D23F57] bg-opacity-40 h-[10rem] py-2 object-contain rounded-t-md flex justify-center">
+              <Image src={item.image} width={150} height={100} />
             </div>
 
             <div className="flex flex-col items-center bg-white p-4 rounded-b-md shadow-inherit">
